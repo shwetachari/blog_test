@@ -1,0 +1,24 @@
+p {
+  margin-bottom:20px;
+  font-family: 'Open Sans', sans-serif;
+  margin-left:15px;
+}
+.main-content {
+  width:50%;
+  margin: 20px;
+  position:absolute;
+}
+
+svg {
+  position:fixed;
+  margin: 30px;
+  right:20px;
+}
+h1, h2 {
+  font-family: 'Lora', serif;
+}
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}
