@@ -17,7 +17,7 @@ var dataset = [
 
 var w = window.innerWidth / 2.5;
 var h = Math.min(w, window.innerHeight);
-var margin, xScale, yScale, svg, tooltip;
+var margin, xScale, yScale, svg, tooltip, xAxis, yAxis;
 
 window.onload = genScatterPlot;
 window.onresize = getDimensions;
@@ -32,18 +32,36 @@ function getDimensions(){
 }
 
 function genScatterPlot() {
-  margin = { top: 30, right: 20, bottom: 30, left: 20 };
+  margin = { top: 30, right: 30, bottom: 50, left: 50 };
 
   xScale = d3.scaleLinear()
-                       .domain([0, d3.max(dataset, function(d) { return d[0]; })])
+              .domain([0, d3.max(dataset, function(d) { return d[0]; })])
                        .range([0, w]);
   yScale = d3.scaleLinear()
-                       .domain([0, d3.max(dataset, function(d) { return d[1]; })])
-                       .range([h, 0]);
+              .domain([0, d3.max(dataset, function(d) { return d[1]; })])
+              .range([h, 0]);
+
   svg = d3.select("body")
               .append("svg")
               .attr("width", w + margin.left + margin.right)
-              .attr("height", h + margin.top + margin.bottom);
+              .attr("height", h + margin.top + margin.bottom)
+              .append("g")
+              .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  svg.append("g")
+      .attr("transform", "translate(0," + h + ")")
+      .call(d3.axisBottom(xScale)
+            /*.ticks(0)
+            .tickSize(0)*/);
+  svg.append("text")
+      .attr("transform", "translate(" + (w / 2) + "," + (h + 40) + ")")
+      .text("x axis label");
+  svg.append("g")
+      .call(d3.axisLeft(yScale)
+              /*.ticks(0)
+              .tickSize(0)*/);
+  svg.append("text")
+      .attr("transform", "translate(" + (-40) + "," + (h / 2) + ")rotate(-90)")
+      .text("y axis label");
 
   tooltip = d3.select("body")
               .append("div")
