@@ -40,13 +40,14 @@ h1, h2 {
 
 @media (max-width: 1025px) {
   .main-content {
-    padding: 0 60px 20px;
+    padding: 0 60px 20px 5px;
+    margin-left: 0;
   }
   p {
     margin-left: 0;
   }
 }
-@media (max-width: 500px) {
+@media (max-width: 372px) {
   .main-content, svg {
     display: none;
   }
