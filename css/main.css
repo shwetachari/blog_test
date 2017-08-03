@@ -8,12 +8,17 @@ p {
   width:50%;
   margin: 20px;
   position:absolute;
+  padding: 0 20px 20px;
 }
 
 svg {
   position:fixed;
   margin-top: 100px;
   right:20px;
+}
+
+svg text {
+  font-family: 'Lora', serif;
 }
 
 h1, h2 {
