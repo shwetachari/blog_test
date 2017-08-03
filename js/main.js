@@ -17,7 +17,7 @@ var dataset = [
 
 var w = window.innerWidth / 2.5;
 var h = Math.min(w, window.innerHeight);
-var margin, xScale, yScale, svg;
+var margin, xScale, yScale, svg, tooltip;
 
 window.onload = genScatterPlot;
 window.onresize = getDimensions;
@@ -45,6 +45,14 @@ function genScatterPlot() {
               .attr("width", w + margin.left + margin.right)
               .attr("height", h + margin.top + margin.bottom);
 
+  tooltip = d3.select("body")
+              .append("div")
+              .style("position", "absolute")
+              .style("padding", "0 10px")
+              .style("background", "blue")
+              .style("color", "white")
+              .style("opacity", 0);
+
   svg.selectAll("circle")
       .data(dataset)
       .enter()
@@ -56,6 +64,17 @@ function genScatterPlot() {
         return yScale(d[1]);
       })
       .attr("r", 3)
+      .on("mouseover", function(d) {
+        tooltip.transition().duration(200)
+              .style("opacity", 0.9);
+        tooltip.html('<div style="font-size:12px; font-family:' + "'Open Sans'" + ', sans-serif">' + '(' + d[0] + ', ' + d[1] + ')</div>')
+            .style("left", (d3.event.pageX - 35) + 'px')
+            .style("top", (d3.event.pageY - 35) + 'px')
+      })
+      .on("mouseout", function(d) {
+        tooltip.transition().duration(200)
+              .style("opacity", 0);
+      });
 }
 
 function removePlot() {
