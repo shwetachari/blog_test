@@ -145,7 +145,7 @@ function genScatterPlot() {
     .text("slope: ~" + Math.round(leastSquaresCoeff[0] * 100) / 100)
     .attr("fill", "green")
     .style("opacity", 0)
-  .transition().delay(3200).duration(1000)
+  .transition().delay(3300).duration(1000)
     .style("opacity", 1);
   svg.append("text")
     .attr("transform", "translate(" + (w - x2 - margin.right - margin.left) + "," + (y2 + margin.top + 30) + ")")
