@@ -1,3 +1,10 @@
+.rotate {
+  display:none;
+  font-size:20px;
+  font-family: 'Lora', serif;
+  margin-top:10%;
+}
+
 p {
   margin-bottom:20px;
   font-family: 'Open Sans', sans-serif;
@@ -29,4 +36,21 @@ h1, h2 {
   fill: none;
   stroke: steelblue;
   stroke-width: 2px;
+}
+
+@media (max-width: 1025px) {
+  .main-content {
+    padding: 0 60px 20px;
+  }
+  p {
+    margin-left: 0;
+  }
+}
+@media (max-width: 500px) {
+  .main-content, svg {
+    display: none;
+  }
+  .rotate {
+    display:block;
+  }
 }
