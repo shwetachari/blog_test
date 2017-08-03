@@ -11,8 +11,11 @@ p {
   margin-left:15px;
 }
 
+
 .main-content {
   width:50%;
+  max-width: 50%;
+  word-wrap: break-word;
   margin: 20px;
   position:absolute;
   padding: 0 20px 20px;
@@ -47,11 +50,17 @@ h1, h2 {
     margin-left: 0;
   }
 }
-@media (max-width: 372px) {
+@media (max-width: 370px) {
   .main-content, svg {
     display: none;
   }
   .rotate {
     display:block;
+  }
+}
+@media (max-height: 430px) {
+  svg {
+    margin-top:0;
+    top: 0;
   }
 }
