@@ -46,6 +46,44 @@
 		$$\theta_1 = \dfrac{n\sum_{i=1}^{n}x_i y_i - \sum_{i=1}^{n}x_i\sum_{i=1}^{n}y_i}{n\sum_{i=1}^{n}x_i^2 - (\sum_{i=1}^{n}x_i)^2}$$
 	</div>
 
+	<h2>Ordinary Least Square (using linear algebra)</h2>
+	<p>
+		https://isites.harvard.edu/fs/docs/icb.topic515975.files/OLSDerivation.pdf
+	</p>
+	<div class="ols">
+		<script type="math/tex; mode=display">B = (X^{T}X)^{-1}X^{T}Y</script>
+	</div>
+	<p>
+		but apparently finding the inverse matrix has a complexity of O(n^3)… so we need a more efficient solution
+	</p>
+
+	<h2>Ordinary Least Square (using gradient descent)</h2>
+	<p>
+		https://spin.atomicobject.com/2014/06/24/gradient-descent-linear-regression/
+	</p>
+	<p>Use partial derivatives of the error function and the random initial parameters (slope and intercept) to get gradients.<br/>
+		Update with gradient weighted by the learning rate*, use the new parameters (slope and intercept) to get new gradients.<br/>
+		Repeat
+	</p>
+	<ul>
+  	<li>There are a few ways to find the right learning rate, but in any case, to check, the cost function should be going down with each iteration: http://blog.datumbox.com/tuning-the-learning-rate-in-gradient-descent/ (how does sciki-learn do it?)</li>
+	</ul>
+	<p class="text-center">partial derivatives:</p>
+	<div class="ols">
+		<script type="math/tex; mode=display">\dfrac{\partial}{\partial \theta_1} = \dfrac{2}{N}\sum_{i=1}^{N}-x_i (y_i - (\theta_1 x_i + \theta_0))</script>
+		<script type="math/tex; mode=display">\dfrac{\partial}{\partial \theta_0} = \dfrac{2}{N}\sum_{i=1}^{N}-(y_i - (\theta_1 x_i + \theta_0))</script>
+	</div>
+
+	<h2>Absolute Error</h2>
+	<script type="math/tex; mode=display">Cost\ Function = Squared\ Errors = Q = \sum_{i=1}^{n} |y_i-(\theta_0 + \theta_1 x_i)| = \sum_{i=1}^{n} \epsilon_i</script>
+	<p>
+		not as easy to solve this optimization problem, i.e. find the minimum of this… https://en.wikipedia.org/wiki/Least_absolute_deviations
+	</p>
+	<h2>Ridge</h2>
+	<h2>Lasso</h2>
+	<h2>How does sklearn actually implement all of this?</h2>
+
+
 </div>
 
 
