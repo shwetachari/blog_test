@@ -32,14 +32,14 @@ function getDimensions(){
 }
 
 function genScatterPlot() {
-  margin = { top: 20, right: 20, bottom: 20, left: 20 };
+  margin = { top: 30, right: 20, bottom: 30, left: 20 };
 
   xScale = d3.scaleLinear()
                        .domain([0, d3.max(dataset, function(d) { return d[0]; })])
                        .range([0, w]);
   yScale = d3.scaleLinear()
                        .domain([0, d3.max(dataset, function(d) { return d[1]; })])
-                       .range([0, h]);
+                       .range([h, 0]);
   svg = d3.select("body")
               .append("svg")
               .attr("width", w + margin.left + margin.right)
@@ -48,7 +48,7 @@ function genScatterPlot() {
   tooltip = d3.select("body")
               .append("div")
               .style("position", "absolute")
-              .style("padding", "0 10px")
+              .style("padding", "3px 8px")
               .style("background", "blue")
               .style("color", "white")
               .style("opacity", 0);
