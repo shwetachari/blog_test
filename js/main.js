@@ -70,12 +70,14 @@ function genScatterPlot() {
             .tickSize(0)*/);
   svg.append("text")
       .attr("transform", "translate(" + (w / 2) + "," + (h + 40) + ")")
+      .attr("text-anchor", "middle")
       .text("x axis label");
   svg.append("g")
       .call(d3.axisLeft(yScale)
               /*.ticks(0)
               .tickSize(0)*/);
   svg.append("text")
+      .attr("text-anchor", "middle")
       .attr("transform", "translate(" + (-40) + "," + (h / 2) + ")rotate(-90)")
       .text("y axis label");
 
@@ -131,7 +133,7 @@ function genScatterPlot() {
     			.attr("y1", function() { return yScale(y1); })
     			.attr("x2", function() { return xScale(x2); })
     			.attr("y2", function() { return yScale(y2); })
-    			.attr("stroke", "black")
+    			.attr("stroke", "green")
           .attr("stroke-width", "1")
           .style("opacity", 0)
         .transition().delay(3000).duration(1000)
@@ -141,6 +143,7 @@ function genScatterPlot() {
     .attr("transform", "translate(" + (w - x2 - margin.right - margin.left) + "," + (y2 + margin.top + 30) + ")")
     .attr("font-size", "13px")
     .text("slope: ~" + Math.round(leastSquaresCoeff[0] * 100) / 100)
+    .attr("fill", "green")
     .style("opacity", 0)
   .transition().delay(3200).duration(1000)
     .style("opacity", 1);
@@ -149,6 +152,7 @@ function genScatterPlot() {
     .attr("font-size", "13px")
     .attr("dy", 15)
     .text("rSquare: ~" + Math.round(leastSquaresCoeff[2] * 100) / 100)
+    .attr("fill", "green")
     .style("opacity", 0)
   .transition().delay(3200).duration(1000)
     .style("opacity", 1);
