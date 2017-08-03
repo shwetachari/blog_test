@@ -17,7 +17,23 @@ var dataset = [
 
 var w = window.innerWidth / 2.5;
 var h = Math.min(w, window.innerHeight);
-var margin, xScale, yScale, svg, tooltip, xAxis, yAxis;
+var margin,
+    xScale,
+    yScale,
+    svg,
+    tooltip,
+    xAxis,
+    yAxis,
+    xSeries,
+    ySeries,
+    leastSquaresCoeff,
+    x1,
+    x2,
+    y1,
+    y2,
+    trendData,
+    trendLine;
+
 
 window.onload = genScatterPlot;
 window.onresize = getDimensions;
@@ -91,10 +107,57 @@ function genScatterPlot() {
       })
       .on("mouseout", function(d) {
         tooltip.transition().duration(200)
-              .style("opacity", 0);
+               .style("opacity", 0);
       });
+
+  xSeries = dataset.map(function(d) {
+    return d[0];
+  });
+  ySeries = dataset.map(function(d) {
+    return d[1]
+  });
+  leastSquaresCoeff = leastSquares(xSeries, ySeries);
+  x1 = xSeries[0];
+  y1 = leastSquaresCoeff[0] + leastSquaresCoeff[1];
+  x2 = xSeries[xSeries.length - 1];
+  y2 = leastSquaresCoeff[0] * xSeries.length + leastSquaresCoeff[1];
+  trendData = [[x1,y1,x2,y2]];
+  trendline = svg.selectAll(".trendline")
+    			.data(dataset);
+
+  trendline.enter()
+    			.append("line")
+    			.attr("class", "trendline")
+    			.attr("x1", function() { return xScale(x1); })
+    			.attr("y1", function() { return yScale(y1); })
+    			.attr("x2", function() { return xScale(x2); })
+    			.attr("y2", function() { return yScale(y2); })
+    			.attr("stroke", "black")
+    			.attr("stroke-width", 1);
 }
 
 function removePlot() {
   d3.select("svg").remove();
+}
+
+function leastSquares(xSeries, ySeries) {
+  var reduceSumFunc = function(prev, cur) { return prev + cur; };
+
+	var xBar = xSeries.reduce(reduceSumFunc) * 1.0 / xSeries.length;
+	var yBar = ySeries.reduce(reduceSumFunc) * 1.0 / ySeries.length;
+
+	var ssXX = xSeries.map(function(d) { return Math.pow(d - xBar, 2); })
+		.reduce(reduceSumFunc);
+
+	var ssYY = ySeries.map(function(d) { return Math.pow(d - yBar, 2); })
+		.reduce(reduceSumFunc);
+
+	var ssXY = xSeries.map(function(d, i) { return (d - xBar) * (ySeries[i] - yBar); })
+		.reduce(reduceSumFunc);
+
+	var slope = ssXY / ssXX;
+	var intercept = yBar - (xBar * slope);
+	var rSquare = Math.pow(ssXY, 2) / (ssXX * ssYY);
+
+	return [slope, intercept, rSquare];
 }
