@@ -124,7 +124,6 @@ function genScatterPlot() {
   trendData = [[x1,y1,x2,y2]];
   trendline = svg.selectAll(".trendline")
     			.data(dataset);
-
   trendline.enter()
     			.append("line")
     			.attr("class", "trendline")
@@ -133,7 +132,26 @@ function genScatterPlot() {
     			.attr("x2", function() { return xScale(x2); })
     			.attr("y2", function() { return yScale(y2); })
     			.attr("stroke", "black")
-    			.attr("stroke-width", 1);
+          .attr("stroke-width", "1")
+          .style("opacity", 0)
+        .transition().delay(3000).duration(1000)
+          .style("opacity", 1);
+
+  svg.append("text")
+    .attr("transform", "translate(" + (w - x2 - margin.right - margin.left) + "," + (y2 + margin.top + 30) + ")")
+    .attr("font-size", "13px")
+    .text("slope: ~" + Math.round(leastSquaresCoeff[0] * 100) / 100)
+    .style("opacity", 0)
+  .transition().delay(3200).duration(1000)
+    .style("opacity", 1);
+  svg.append("text")
+    .attr("transform", "translate(" + (w - x2 - margin.right - margin.left) + "," + (y2 + margin.top + 30) + ")")
+    .attr("font-size", "13px")
+    .attr("dy", 15)
+    .text("rSquare: ~" + Math.round(leastSquaresCoeff[2] * 100) / 100)
+    .style("opacity", 0)
+  .transition().delay(3200).duration(1000)
+    .style("opacity", 1);
 }
 
 function removePlot() {
