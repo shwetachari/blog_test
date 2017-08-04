@@ -1,3 +1,19 @@
+/*
+color scheme (light to dark) :
+#e8edf3 purplewhite
+#e6cf8b yellow
+#b56969 red
+#22264b purple
+
+#feffff white
+#98dafc blue
+#daad86 orangebrown
+#312c32 brown
+*/
+body {
+  width:100%;
+  background:#feffff;
+}
 .rotate {
   display:none;
   font-size:20px;
@@ -19,6 +35,7 @@ p {
   margin: 20px;
   position:absolute;
   padding: 0 20px 20px;
+  color:#312c32;
 }
 
 svg {
@@ -27,19 +44,23 @@ svg {
   right:20px;
 }
 
+.tooltip {
+  border-radius:5px;
+  position:absolute;
+  padding: 3px 8px;
+  background: #98dafc;
+  color:#feffff;
+}
+
 svg text {
   font-family: 'Open Sans', sans-serif;
 }
 
 h1, h2 {
   font-family: 'Lora', serif;
+  color: #daad86;
 }
 
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 2px;
-}
 
 @media (max-width: 1025px) {
   .main-content {

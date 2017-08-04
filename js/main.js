@@ -64,29 +64,30 @@ function genScatterPlot() {
               .append("g")
               .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
   svg.append("g")
+      .attr("fill", "#312c32")
       .attr("transform", "translate(0," + h + ")")
       .call(d3.axisBottom(xScale)
             /*.ticks(0)
             .tickSize(0)*/);
   svg.append("text")
+      .attr("fill", "#312c32")
       .attr("transform", "translate(" + (w / 2) + "," + (h + 40) + ")")
       .attr("text-anchor", "middle")
       .text("x axis label");
   svg.append("g")
+      .attr("fill", "#312c32")
       .call(d3.axisLeft(yScale)
               /*.ticks(0)
               .tickSize(0)*/);
   svg.append("text")
+      .attr("fill", "#312c32")
       .attr("text-anchor", "middle")
       .attr("transform", "translate(" + (-40) + "," + (h / 2) + ")rotate(-90)")
       .text("y axis label");
 
   tooltip = d3.select("body")
               .append("div")
-              .style("position", "absolute")
-              .style("padding", "3px 8px")
-              .style("background", "blue")
-              .style("color", "white")
+              .attr("class", "tooltip")
               .style("opacity", 0);
 
   svg.selectAll("circle")
@@ -100,9 +101,10 @@ function genScatterPlot() {
         return yScale(d[1]);
       })
       .attr("r", 3)
+      .attr("fill", "#daad86")
       .on("mouseover", function(d) {
         tooltip.transition().duration(200)
-              .style("opacity", 0.9);
+              .style("opacity", 1);
         tooltip.html('<div style="font-size:12px; font-family:' + "'Open Sans'" + ', sans-serif">' + '(' + d[0] + ', ' + d[1] + ')</div>')
             .style("left", (d3.event.pageX - 35) + 'px')
             .style("top", (d3.event.pageY - 35) + 'px')
@@ -133,7 +135,7 @@ function genScatterPlot() {
     			.attr("y1", function() { return yScale(y1); })
     			.attr("x2", function() { return xScale(x2); })
     			.attr("y2", function() { return yScale(y2); })
-    			.attr("stroke", "green")
+    			.attr("stroke", "#98dafc")
           .attr("stroke-width", "1")
           .style("opacity", 0)
         .transition().delay(3000).duration(1000)
@@ -143,7 +145,7 @@ function genScatterPlot() {
     .attr("transform", "translate(" + (w - x2 - margin.right - margin.left) + "," + (y2 + margin.top + 30) + ")")
     .attr("font-size", "13px")
     .text("slope: ~" + Math.round(leastSquaresCoeff[0] * 100) / 100)
-    .attr("fill", "green")
+    .attr("fill", "#98dafc")
     .style("opacity", 0)
   .transition().delay(3300).duration(1000)
     .style("opacity", 1);
@@ -152,7 +154,7 @@ function genScatterPlot() {
     .attr("font-size", "13px")
     .attr("dy", 15)
     .text("rSquare: ~" + Math.round(leastSquaresCoeff[2] * 100) / 100)
-    .attr("fill", "green")
+    .attr("fill", "#98dafc")
     .style("opacity", 0)
   .transition().delay(3200).duration(1000)
     .style("opacity", 1);
